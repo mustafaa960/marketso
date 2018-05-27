@@ -1,0 +1,152 @@
+package com.miq.sms.controllers;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToolbar;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
+import javax.swing.JOptionPane;
+
+/**
+ * FXML Controller class
+ *
+ * @author Mustafa
+ */
+public class DashboardController implements Initializable {
+
+    @FXML
+    private StackPane stackPane;
+
+    @FXML
+    private AnchorPane holderPane;
+    @FXML
+    private AnchorPane sideAnchor;
+    @FXML
+    private JFXToolbar toolBar;
+    private AnchorPane home, sales, addProduct, store, purchases,salesReport;
+    @FXML
+    private JFXButton btnHome;
+    @FXML
+    private JFXButton btnClose;
+    @FXML
+    private JFXButton btnViewSales;
+    @FXML
+    private JFXButton btnAddProduct;
+    @FXML
+    private JFXButton btnPurchases;
+    @FXML
+    private JFXButton btnSalesReport;
+
+    /**
+     * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+        createPages();
+
+    }
+
+    //Set selected node to a content holder
+    private void setNode(Node node) {
+        holderPane.getChildren().clear();
+        holderPane.getChildren().add((Node) node);
+        FadeTransition ft = new FadeTransition(Duration.millis(1500));
+        ft.setNode(node);
+        ft.setFromValue(0.1);
+        ft.setToValue(1);
+        ft.setCycleCount(1);
+        ft.setAutoReverse(false);
+        ft.play();
+    }
+
+    FXMLLoader homeloader = new FXMLLoader(getClass().getResource("/fxml/Overview.fxml"));
+    FXMLLoader salesloader = new FXMLLoader(getClass().getResource("/fxml/SalesView.fxml"));
+    FXMLLoader addProductloader = new FXMLLoader(getClass().getResource("/fxml/addProductsView.fxml"));
+    FXMLLoader storeloader = new FXMLLoader(getClass().getResource("/fxml/Store.fxml"));
+    FXMLLoader purchaseLoder = new FXMLLoader(getClass().getResource("/fxml/PurchasesView.fxml"));
+    FXMLLoader salesReportLoder = new FXMLLoader(getClass().getResource("/fxml/salesReportView.fxml"));
+
+    //Load all fxml files to a cahce for swapping
+    private void createPages() {
+        try {
+            home = homeloader.load();
+            sales = salesloader.load();
+            addProduct = addProductloader.load();
+            store = storeloader.load();
+            purchases = purchaseLoder.load();
+            salesReport=salesReportLoder.load();
+
+            //set up default node on page load
+            setNode(home);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+
+        }
+
+    }
+
+    @FXML
+    private void openHome(ActionEvent event) {
+        setNode(home);
+        OverviewController controller = homeloader.<OverviewController>getController();
+        controller.fillProductsExp();
+        controller.fillProductsQty();
+    }
+
+    @FXML
+    private void onViewSales(ActionEvent event) {
+        setNode(sales);
+        SalesViewController controller = salesloader.<SalesViewController>getController();
+        controller.barcodeSearch();
+    }
+
+    @FXML
+    private void onAddProduct(ActionEvent event) {
+        setNode(addProduct);
+
+        AddProductsViewController controller = addProductloader.<AddProductsViewController>getController();
+        controller.barcodeSearch();
+    }
+
+    @FXML
+    private void onStore(ActionEvent event) {
+        setNode(store);
+
+        StoreController controller = storeloader.<StoreController>getController();
+        controller.textSearch();
+    }
+
+    @FXML
+    private void exit(ActionEvent event) {
+        Platform.exit();
+    }
+
+    @FXML
+    private void onPurchases(ActionEvent event) {
+        setNode(purchases);
+        PurchasesViewController controller = purchaseLoder.<PurchasesViewController>getController();
+        controller.textSearch();
+    }
+
+    @FXML
+    private void onSalesReport(ActionEvent event) {
+        setNode(salesReport);
+        SalesReportViewController controller = salesReportLoder.<SalesReportViewController>getController();
+        controller.textSearch();
+    }
+
+}

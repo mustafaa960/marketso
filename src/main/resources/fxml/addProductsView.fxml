@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="591.0" prefWidth="1000.0" stylesheets="@../styles/custom.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miq.sms.controllers.AddProductsViewController">
+   <children>
+      <AnchorPane id="AnchorPane" layoutX="33.0" layoutY="33.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="536.0" prefWidth="922.0" styleClass="card-white" stylesheets="@../styles/custom.css">
+         <children>
+            <GridPane layoutX="14.0" layoutY="44.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="869.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXTextField fx:id="txtBarcode" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="الكود الخاص بالمنتج barcode" unFocusColor="BLACK">
+                     <GridPane.margin>
+                        <Insets left="10.0" right="90.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXComboBox fx:id="comboProductsName" editable="true" focusColor="#009688" labelFloat="true" prefHeight="35.0" prefWidth="349.0" promptText="اسم المنتج" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="10.0" right="90.0" />
+                     </GridPane.margin>
+                  </JFXComboBox>
+                  <JFXTextField fx:id="txtProductsQty" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="الكمية" unFocusColor="BLACK" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" right="90.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXTextField>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="97.0" prefWidth="349.0" spacing="10.0" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="10.0" right="50.0" />
+                     </GridPane.margin>
+                     <children>
+                        <JFXTextField fx:id="txtDiscount" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="اعلى نسبة للخصم" unFocusColor="BLACK">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <Label prefHeight="17.0" prefWidth="30.0" text="\%">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </HBox>
+                  <JFXTextField fx:id="txtBuyPrice" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="سعر شراء القطعة" unFocusColor="BLACK" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="90.0" />
+                     </GridPane.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="txtSalePriceOdd" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="سعر بيع القطعة للمفرد" unFocusColor="BLACK" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="90.0" />
+                     </GridPane.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="txtSalePriceEven" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="سعر بيع القطعة للجملة" unFocusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="90.0" />
+                     </GridPane.margin>
+                  </JFXTextField>
+                  <JFXDatePicker fx:id="dataPickExpire" prefHeight="51.0" prefWidth="522.0" promptText="تاريخ انتهاء الصلاحية" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" right="90.0" />
+                     </GridPane.margin>
+                  </JFXDatePicker>
+                  <JFXTextArea fx:id="txtAreaNote" focusColor="#009688" labelFloat="true" promptText="ملاحظات" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="90.0" top="10.0" />
+                     </GridPane.margin>
+                  </JFXTextArea>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                        <JFXButton fx:id="btnClear" buttonType="RAISED" onAction="#onClear" prefHeight="30.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: tomato;" text="تفريغ الحقول" textFill="#f5f5f5">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnSave" buttonType="RAISED" onAction="#onSave" prefHeight="30.0" prefWidth="100.0" ripplerFill="#fdffff" style="-fx-background-color: #43A047;" text="حفظ" textFill="#f5f5f5">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+      <Pane layoutX="45.0" layoutY="6.0" prefHeight="51.0" prefWidth="186.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 4; -fx-background-color: rgb(20, 95, 183,0.6);">
+         <children>
+            <Label layoutX="29.0" layoutY="8.0" prefHeight="35.0" prefWidth="129.0" text="اضافة منتج" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
