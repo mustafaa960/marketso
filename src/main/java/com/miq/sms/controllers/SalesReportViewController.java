@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.miq.sms.models.dao.SalesDao;
 import com.miq.sms.models.vo.SalesVo;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.Optional;
@@ -14,12 +15,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -186,6 +193,46 @@ public class SalesReportViewController implements Initializable {
 
     @FXML
     private void onEditProducts(ActionEvent event) {
+        
+        try {
+            SalesVo salesVo = new SalesVo();
+            salesVo = tableProducts.getSelectionModel().getSelectedItem();
+            if (salesVo != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EditSalesReportView.fxml"));
+                Parent root = loader.load();
+                EditSalesReportController controller = loader.<EditSalesReportController>getController();
+                controller.initProduct(salesVo);
+                Stage primaryStage = (Stage) btnEditProducts.getScene().getWindow();
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(primaryStage);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.setScene(scene);
+                int index = tableProducts.getSelectionModel().getSelectedIndex();
+                stage.show();
+                stage.setOnHidden((e) -> {
+                    fillTableProducts();
+                    textSearch();
+                    tableProducts.requestFocus();
+                    tableProducts.getSelectionModel().clearAndSelect(index);
+                    tableProducts.getFocusModel().focusRightCell();
+                    tableProducts.scrollTo(tableProducts.getSelectionModel().getFocusedIndex());
+                });
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("تحذير");
+            alert.setHeaderText("لم يتم تحديد اي عنصر");
+            alert.setContentText("يرجى اختيار عنصر لتعديله ");
+            alert.showAndWait();
+            }
+        } catch (IOException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("خطأ");
+            alert.setHeaderText(ex.getMessage());
+            alert.setContentText(ex.toString());
+            alert.showAndWait();
+        }
     }
 
 }

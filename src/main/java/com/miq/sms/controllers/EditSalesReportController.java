@@ -5,9 +5,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.miq.sms.models.dao.BuyDao;
-import com.miq.sms.models.vo.BuyVo;
+import com.miq.sms.models.dao.SalesDao;
 import com.miq.sms.models.vo.ProductsVo;
+import com.miq.sms.models.vo.SalesVo;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -18,16 +18,16 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 /**
+ * FXML Controller class
  *
  * @author AL SAFIR
  */
-public class EditPurchasesController implements Initializable {
+public class EditSalesReportController implements Initializable {
+
     @FXML
     private JFXTextField txtProductsQty;
     @FXML
-    private JFXTextField txtBuyPrice;
-    @FXML
-    private JFXDatePicker dataPickExpire;
+    private JFXTextField txtDiacount;
     @FXML
     private JFXTextArea txtAreaNote;
     @FXML
@@ -35,41 +35,45 @@ public class EditPurchasesController implements Initializable {
     @FXML
     private JFXTextField txtUserName;
     @FXML
-    private JFXDatePicker dataPickBuy;
-    @FXML
     private JFXTextField txtProductName;
+    @FXML
+    private JFXTextField txtCustomerName;
+    @FXML
+    private JFXTextField txtSalePrice;
+    @FXML
+    private JFXDatePicker dataPickSale;
+
     /**
      * Initializes the controller class.
-     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-    BuyVo buyVo = null;
+    }    
+     SalesVo salesVo = null;
 
-    public void initProduct(BuyVo bv) {
+    public void initProduct(SalesVo sv) {
 //        this.productsVo=new ProductsVo();
-        this.buyVo = bv;
-        txtProductsQty.setText(String.valueOf(buyVo.getQty()));
-        txtProductName.setText(buyVo.getProductsVo().getName());
-        txtBuyPrice.setText(String.valueOf(buyVo.getBuyPrice()));
-        txtUserName.setText(buyVo.getUserName());
-        Date expDate = (Date) buyVo.getExpDate();
-        dataPickExpire.setValue(expDate.toLocalDate());
-        Date date = (Date) buyVo.getDate();
-        dataPickBuy.setValue(date.toLocalDate());
-        txtAreaNote.setText(buyVo.getNotes());
+        this.salesVo = sv;
+        txtProductsQty.setText(String.valueOf(salesVo.getQty()));
+        txtDiacount.setText(String.valueOf(salesVo.getDiscount()));
+        txtProductName.setText(salesVo.getProductsVo().getName());
+        txtSalePrice.setText(String.valueOf(salesVo.getSalePrice()));
+        txtUserName.setText(salesVo.getUserName());
+        txtCustomerName.setText(salesVo.getCustomerName());
+        Date date = (Date) salesVo.getDate();
+        dataPickSale.setValue(date.toLocalDate());
+        txtAreaNote.setText(salesVo.getNotes());
     }
     @FXML
     private void onSave(ActionEvent event) {
         try {
             if ( txtUserName.getText().trim().isEmpty() || txtProductsQty.getText().trim().isEmpty()
-                    || txtBuyPrice.getText().trim().isEmpty()
-                    || dataPickExpire.getEditor().getText().trim().isEmpty()
-                    || dataPickBuy.getEditor().getText().trim().isEmpty()) {
+                    || txtSalePrice.getText().trim().isEmpty()|| txtDiacount.getText().trim().isEmpty()
+                    || txtCustomerName.getText().trim().isEmpty()
+                    || dataPickSale.getEditor().getText().trim().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");
                 alert.setHeaderText("لا يمكن ترك حقل فارغ");
@@ -77,15 +81,16 @@ public class EditPurchasesController implements Initializable {
                 alert.showAndWait();
                 return;
             }
-            int id = this.buyVo.getId();
+            int id = this.salesVo.getId();
             String username = txtUserName.getText().trim();
+            String customername = txtCustomerName.getText().trim();
             int qty = Integer.valueOf(txtProductsQty.getText().trim());
-            float buyPrice = Float.valueOf(txtBuyPrice.getText().trim());
-            Date expDate = Date.valueOf(dataPickExpire.getValue());
-            Date date = Date.valueOf(dataPickBuy.getValue());
+            int discount = Integer.valueOf(txtDiacount.getText().trim());
+            float salePrice = Float.valueOf(txtSalePrice.getText().trim());
+            Date date = Date.valueOf(dataPickSale.getValue());
             String notes = txtAreaNote.getText().trim();
-            ProductsVo productsVo=buyVo.getProductsVo();
-            if ((qty <= 0) || (buyPrice <= 0.0)) {
+            ProductsVo productsVo=this.salesVo.getProductsVo();
+            if ((discount < 0 ) ||(qty <= 0) || (salePrice <= 0.0)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");
                 alert.setHeaderText("احد الحقول غير صحيح");
@@ -93,16 +98,18 @@ public class EditPurchasesController implements Initializable {
                 alert.showAndWait();
                 return;
             }
-            BuyVo bv = new BuyVo();
-            bv.setId(id);
-            bv.setUserName(username);
-            bv.setQty(qty);
-            bv.setBuyPrice(buyPrice);
-            bv.setExpDate(expDate);
-            bv.setDate(date);
-            bv.setNotes(notes);
-            bv.setProductsVo(productsVo);
-            int count = BuyDao.getInstance().update(bv);
+            
+            SalesVo sv = new SalesVo();
+            sv.setId(id);
+            sv.setUserName(username);
+            sv.setQty(qty);
+            sv.setDiscount(discount);
+            sv.setCustomerName(customername);
+            sv.setSalePrice(salePrice);
+            sv.setDate(date);
+            sv.setNotes(notes);
+            sv.setProductsVo(productsVo);
+            int count = SalesDao.getInstance().update(sv);
             if (count == 1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("التعديل");
@@ -123,8 +130,6 @@ public class EditPurchasesController implements Initializable {
             alert.setContentText(ex.toString());
             alert.showAndWait();
         }
-
-    }
     }
     
-
+}
