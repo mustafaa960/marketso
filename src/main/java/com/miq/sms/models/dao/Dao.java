@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javafx.scene.control.Alert;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -11,7 +12,7 @@ import javafx.scene.control.Alert;
  */
 //calss database access object
 public class Dao {
-     public Connection getConnection() {
+     public Connection getConnection()  {
         // variables
         Connection connection = null;
         // Step 1: Loading or registering Oracle JDBC driver class
@@ -25,7 +26,8 @@ public class Dao {
         }
         // Step 2: Opening database connection
         try {
-            String msAccDB = "..\\sms\\src\\main\\resources\\db\\sms.accdb";
+            String msAccDB = "..\\marketso\\src\\main\\resources\\db\\sms.accdb";
+//            String msAccDB = "..\\sms\\src\\main\\resources\\db\\sms.accdb";
             String dbURL = "jdbc:ucanaccess://" + msAccDB;
             // Step 2.A: Create and get connection using DriverManager class
             connection = DriverManager.getConnection(dbURL);
@@ -40,7 +42,8 @@ public class Dao {
                        alert.setHeaderText("حدث خطأ في الاتصال بقاعدة البيانات");
                        alert.setContentText(sqlex.getMessage());
                        alert.showAndWait();
-            
+//            JOptionPane.showMessageDialog(null, "حدث خطأ في الاتصال بقاعدة البيانات");
+
            }
 
         return null;

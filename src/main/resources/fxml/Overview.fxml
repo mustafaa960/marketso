@@ -17,7 +17,7 @@
 
 <!--<?import com.jfoenix.controls.JFXListView?>-->
 
-<AnchorPane id="AnchorPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="670.0" prefWidth="1100.0" stylesheets="@../styles/custom.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miq.sms.controllers.OverviewController">
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="670.0" prefWidth="1100.0" stylesheets="@../styles/custom.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miq.sms.controllers.OverviewController">
    <children>
       <HBox fx:id="groupHolder" layoutX="10.0" layoutY="10.0" prefHeight="181.0" prefWidth="1100.0">
          <children>
@@ -168,17 +168,17 @@
                         </Label>
                      </children>
                   </Pane>
-                  <TableView fx:id="tableProductsQty" layoutY="60.0" prefHeight="372.0" prefWidth="263.0">
+                  <TableView fx:id="tableProductsQty" layoutX="8.0" layoutY="58.0" prefHeight="378.0" prefWidth="254.0">
                      <columns>
-                        <TableColumn fx:id="colProductsName" prefWidth="160.0" text="اسم المنتج" />
-                        <TableColumn fx:id="colQty" prefWidth="103.0" text="  الكمية المتبقية" />
+                        <TableColumn fx:id="colProductsName" prefWidth="140.0" text="اسم المنتج" />
+                        <TableColumn fx:id="colQty" prefWidth="123.0" text="  الكمية المتبقية" />
                      </columns>
                   </TableView>
                </children>
             </AnchorPane>
          </children>
       </StackPane>
-      <AnchorPane fx:id="anchPaneQtyNotify" layoutX="561.0" layoutY="214.0" style="-fx-background-color: white; -fx-background-radius: 3; -fx-border-radius: 3; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+      <AnchorPane fx:id="anchPaneQtyNotify" layoutX="561.0" layoutY="214.0" prefHeight="436.0" prefWidth="543.0" style="-fx-background-color: white; -fx-background-radius: 3; -fx-border-radius: 3; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
          <children>
             <Pane layoutY="-1.0" prefHeight="60.0" prefWidth="543.0" style="-fx-background-color: #F87951; -fx-background-radius: 5 5 0 0;">
                <children>

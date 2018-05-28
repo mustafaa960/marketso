@@ -9,11 +9,15 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
+import com.miq.sms.models.dao.UsersDao;
+import com.miq.sms.models.vo.UsersVo;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -47,7 +51,7 @@ public class LoginController implements Initializable {
     @FXML
     private ImageView imgProgress;
 
-    
+    UsersVo usersVo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,6 +73,7 @@ public class LoginController implements Initializable {
     }
 
     private void handleValidation() {
+        usersVo = new UsersVo();
         RequiredFieldValidator fieldValidator = new RequiredFieldValidator();
         fieldValidator.setMessage("Input required");
         fieldValidator.setIcon(new FontAwesomeIconView(FontAwesomeIcon.TIMES));
@@ -76,7 +81,7 @@ public class LoginController implements Initializable {
         txtUsername.focusedProperty().addListener((ObservableValue<? extends Boolean> o, Boolean oldVal, Boolean newVal) -> {
             if (!newVal) {
                 txtUsername.validate();
-
+                usersVo.setUserName(txtUsername.getText());
             }
         });
         RequiredFieldValidator fieldValidator2 = new RequiredFieldValidator();
@@ -86,14 +91,22 @@ public class LoginController implements Initializable {
         txtPassword.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if (!newValue) {
                 txtPassword.validate();
+                usersVo.setPassword(txtPassword.getText());
             }
         });
 
     }
 
     private void completeLogin() {
-        btnLogin.getScene().getWindow().hide();
         try {
+            UsersVo uv = UsersDao.getInstance().getData(usersVo);
+            if (uv == null) {
+                JOptionPane.showMessageDialog(null, "اسم المستخدم او كلمة المرور غير صحيحة");
+                imgProgress.setVisible(false);
+//                System.err.println("enter valid user name and password");
+            } else {
+        btnLogin.getScene().getWindow().hide();
+        
             imgProgress.setVisible(false);
             Stage dashboardStage = new Stage();
             dashboardStage.setTitle("");
@@ -101,11 +114,15 @@ public class LoginController implements Initializable {
             Scene scene = new Scene(root);
             dashboardStage.setScene(scene);
             dashboardStage.show();
-        } catch (IOException ex) {
+            }
+        }catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex);
 //            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
+    }   catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
