@@ -105,6 +105,8 @@ public class LoginController implements Initializable {
                 imgProgress.setVisible(false);
 //                System.err.println("enter valid user name and password");
             } else {
+                DashboardController dashboardController =new DashboardController();
+                dashboardController.usersVo=uv;
         btnLogin.getScene().getWindow().hide();
         
             imgProgress.setVisible(false);

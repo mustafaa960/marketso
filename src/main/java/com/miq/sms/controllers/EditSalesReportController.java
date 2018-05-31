@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.miq.sms.models.dao.SalesDao;
 import com.miq.sms.models.vo.ProductsVo;
 import com.miq.sms.models.vo.SalesVo;
+import com.miq.sms.models.vo.UsersVo;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -82,7 +83,7 @@ public class EditSalesReportController implements Initializable {
                 return;
             }
             int id = this.salesVo.getId();
-            String username = txtUserName.getText().trim();
+//            String username = txtUserName.getText().trim();
             String customername = txtCustomerName.getText().trim();
             int qty = Integer.valueOf(txtProductsQty.getText().trim());
             int discount = Integer.valueOf(txtDiacount.getText().trim());
@@ -101,7 +102,13 @@ public class EditSalesReportController implements Initializable {
             
             SalesVo sv = new SalesVo();
             sv.setId(id);
-            sv.setUserName(username);
+            //==============create instance of userVo
+                UsersVo usersVo = new UsersVo();
+            String user = DashboardController.usersVo.getUserName();
+            usersVo.setUserName(user);
+            sv.setUser(usersVo);
+            //========================
+//            sv.setUserName(username);
             sv.setQty(qty);
             sv.setDiscount(discount);
             sv.setCustomerName(customername);

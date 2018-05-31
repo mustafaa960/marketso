@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.miq.sms.models.dao.BuyDao;
 import com.miq.sms.models.vo.BuyVo;
 import com.miq.sms.models.vo.ProductsVo;
+import com.miq.sms.models.vo.UsersVo;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -95,6 +96,12 @@ public class EditPurchasesController implements Initializable {
             }
             BuyVo bv = new BuyVo();
             bv.setId(id);
+            //==============create instance of userVo
+//                UsersVo usersVo = new UsersVo();
+//            String user = DashboardController.usersVo.getUserName();
+//            usersVo.setUserName(user);
+//            buyVo.setUser(usersVo);
+            //========================
             bv.setUserName(username);
             bv.setQty(qty);
             bv.setBuyPrice(buyPrice);

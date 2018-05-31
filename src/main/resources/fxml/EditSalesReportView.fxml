@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="591.0" prefWidth="1000.0" stylesheets="@../styles/custom.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miq.sms.controllers.EditSalesReportController">
    <children>
       <AnchorPane id="AnchorPane" layoutX="33.0" layoutY="33.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="536.0" prefWidth="922.0" styleClass="card-white" stylesheets="@../styles/custom.css">
@@ -71,7 +70,7 @@
                         </JFXButton>
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="txtUserName" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="اسم المستخدم" unFocusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtUserName" disable="true" editable="false" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="اسم المستخدم" unFocusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>

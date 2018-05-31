@@ -132,7 +132,8 @@ public class BuyDao extends Dao implements DaoList<BuyVo> {
             ps.setFloat(3, bv.getBuyPrice());
             ps.setDate(4, (Date) bv.getDate());
             ps.setDate(5, (Date) bv.getExpDate());
-            ps.setString(6, bv.getUserName());
+//            ps.setString(6, bv.getUserName());
+            ps.setString(6, bv.getUser().getUserName());
             ps.setString(7, bv.getNotes());
             ps.setInt(8, bv.getProductsVo().getId());
             ps.executeUpdate();
@@ -184,6 +185,7 @@ public class BuyDao extends Dao implements DaoList<BuyVo> {
             ps.setDate(3, (Date) bv.getDate());
             ps.setDate(4, (Date) bv.getExpDate());
             ps.setString(5, bv.getUserName());
+//            ps.setString(5, bv.getUser().getUserName());
             ps.setString(6, bv.getNotes());
             ps.setInt(7, bv.getProductsVo().getId());
             ps.setInt(8, bv.getId());

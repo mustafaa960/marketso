@@ -2,6 +2,7 @@ package com.miq.sms.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToolbar;
+import com.miq.sms.models.vo.UsersVo;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,6 +58,21 @@ public class DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         createPages();
+
+    }
+    public static UsersVo usersVo;
+    /**
+     * Creates new form Home
+     */
+    public DashboardController(UsersVo uv) {
+//        initComponents();
+//        this.setLocationRelativeTo(null);
+        usersVo=uv;
+//        getUserLevel();
+
+    }
+    public DashboardController() {
+//      ;
 
     }
 

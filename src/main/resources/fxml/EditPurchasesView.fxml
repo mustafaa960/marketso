@@ -78,7 +78,7 @@
                         </JFXButton>
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="txtUserName" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="اسم المستخدم" unFocusColor="BLACK" GridPane.rowIndex="3">
+                  <JFXTextField fx:id="txtUserName" disable="true" editable="false" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="اسم المستخدم" unFocusColor="BLACK" GridPane.rowIndex="3">
                      <font>
                         <Font size="14.0" />
                      </font>

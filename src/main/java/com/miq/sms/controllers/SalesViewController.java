@@ -8,6 +8,7 @@ import com.miq.sms.models.dao.ProductsDao;
 import com.miq.sms.models.dao.SalesDao;
 import com.miq.sms.models.vo.ProductsVo;
 import com.miq.sms.models.vo.SalesVo;
+import com.miq.sms.models.vo.UsersVo;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -136,7 +137,7 @@ public class SalesViewController implements Initializable {
             barcodeSearch();
             TableSales.getItems().clear();
             tableChanged();
-            
+
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("خطأ");
@@ -189,7 +190,13 @@ public class SalesViewController implements Initializable {
             sv.setSalePrice(Float.valueOf(txtPrice.getText().trim()) * Integer.valueOf(txtProductsNumber.getText().trim()));
             sv.setDiscount(comboDiscount.getSelectionModel().getSelectedItem());
             sv.setCustomerName(txtCustomerName.getText().trim());
-            sv.setUserName("user");
+//            ============= create instance of userVo
+            UsersVo usersVo = new UsersVo();
+            String user = DashboardController.usersVo.getUserName();
+            usersVo.setUserName(user);
+            sv.setUser(usersVo);
+//           ==========
+
             sv.setNotes(txtAreaNote.getText().trim());
 
             if (pv != null) {
@@ -303,7 +310,6 @@ public class SalesViewController implements Initializable {
 //                    }
 //                    return map.get(string.trim());
 //                }
-
                 @Override
                 public Object fromString(String string) {
                     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

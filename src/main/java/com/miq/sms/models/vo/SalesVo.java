@@ -29,6 +29,15 @@ public class SalesVo {
     //initilaze object from Items
     private ProductsVo productsVo;
 
+    private UsersVo user;
+
+    public UsersVo getUser() {
+        return user;
+    }
+
+    public void setUser(UsersVo user) {
+        this.user = user;
+    }
     //constructor
     public SalesVo() {
         this.id = new SimpleIntegerProperty();

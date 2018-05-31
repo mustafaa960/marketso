@@ -8,6 +8,7 @@ import com.miq.sms.models.dao.BuyDao;
 import com.miq.sms.models.dao.ProductsDao;
 import com.miq.sms.models.vo.BuyVo;
 import com.miq.sms.models.vo.ProductsVo;
+import com.miq.sms.models.vo.UsersVo;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -174,7 +175,13 @@ public class AddProductsViewController implements Initializable {
                 buyVo.setDate(storeDate);
                 buyVo.setExpDate(expDate);
                 buyVo.setBuyPrice(buyPrice);
-                buyVo.setUserName("admin");
+                //==============create instance of userVo
+                UsersVo usersVo = new UsersVo();
+            String user = DashboardController.usersVo.getUserName();
+            usersVo.setUserName(user);
+            buyVo.setUser(usersVo);
+            //========================
+//                buyVo.setUserName("admin");
                 buyVo.setNotes(notes);
                 int count = ProductsDao.getInstance().update(productsVo);
                 int count2 = BuyDao.getInstance().insert(buyVo);
@@ -217,7 +224,13 @@ public class AddProductsViewController implements Initializable {
                 buyVo.setDate(storeDate);
                 buyVo.setExpDate(expDate);
                 buyVo.setBuyPrice(buyPrice);
-                buyVo.setUserName("admin");
+                //==============create instance of userVo
+                UsersVo usersVo = new UsersVo();
+            String user = DashboardController.usersVo.getUserName();
+            usersVo.setUserName(user);
+            buyVo.setUser(usersVo);
+            //========================
+//                buyVo.setUserName("admin");
                 buyVo.setNotes(notes);
                 int count = ProductsDao.getInstance().insert(productsVo);
                 int count2 = BuyDao.getInstance().insert(buyVo);

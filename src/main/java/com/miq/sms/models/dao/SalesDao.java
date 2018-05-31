@@ -118,7 +118,9 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
             ps.setInt(4, sv.getDiscount());
             ps.setDate(5, (Date) sv.getDate());
             ps.setString(6, sv.getCustomerName());
-            ps.setString(7, sv.getUserName());
+//            ps.setString(7, sv.getUserName());
+            ps.setString(7, sv.getUser().getUserName());
+//            ===================
             ps.setString(8, sv.getNotes());
             ps.setInt(9, sv.getProductsVo().getId());
             ps.executeUpdate();
@@ -153,7 +155,7 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
             ps.setInt(3, sv.getDiscount());
             ps.setDate(4, (Date) sv.getDate());
             ps.setString(5, sv.getCustomerName());
-            ps.setString(6, sv.getUserName());
+            ps.setString(6, sv.getUser().getUserName());
             ps.setString(7, sv.getNotes());
             ps.setInt(8, sv.getProductsVo().getId());
             ps.setInt(9, sv.getId());

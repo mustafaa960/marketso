@@ -28,6 +28,17 @@ public class BuyVo {
     private StringProperty userName;
     //initilaze object from Items
     private ProductsVo productsVo;
+        //initilaze object from user
+    private UsersVo user;
+
+    public UsersVo getUser() {
+        return user;
+    }
+
+    public void setUser(UsersVo user) {
+        this.user = user;
+    }
+
 
     //constructor
     public BuyVo() {
