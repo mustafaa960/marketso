@@ -42,6 +42,8 @@ public class EditProductsController implements Initializable {
     private JFXButton btnSave;
     @FXML
     private JFXTextField txtProductName;
+    @FXML
+    private JFXTextField txtProductsQtyMin;
 
     /**
      * Initializes the controller class.
@@ -61,6 +63,7 @@ public class EditProductsController implements Initializable {
         txtBarcode.setText(productsVo.getBarcode());
         txtProductName.setText(productsVo.getName());
         txtProductsQty.setText(String.valueOf(productsVo.getQty()));
+        txtProductsQtyMin.setText(String.valueOf(productsVo.getQtyMin()));
         txtDiscount.setText(String.valueOf(productsVo.getMaxDiscount()));
         txtBuyPrice.setText(String.valueOf(productsVo.getBuyPrice()));
         txtSalePriceOdd.setText(String.valueOf(productsVo.getSalePriceOdd()));
@@ -73,7 +76,7 @@ public class EditProductsController implements Initializable {
     @FXML
     private void onSave(ActionEvent event) {
         try {
-            if (txtBarcode.getText().trim().isEmpty() || txtProductName.getText().trim().isEmpty() || txtProductsQty.getText().trim().isEmpty()
+            if (txtBarcode.getText().trim().isEmpty() || txtProductName.getText().trim().isEmpty() || txtProductsQty.getText().trim().isEmpty()|| txtProductsQtyMin.getText().trim().isEmpty()
                     || txtDiscount.getText().trim().isEmpty() || txtBuyPrice.getText().trim().isEmpty()
                     || txtSalePriceOdd.getText().trim().isEmpty() || txtSalePriceEven.getText().trim().isEmpty()
                     || dataPickExpire.getEditor().getText().trim().isEmpty()) {
@@ -87,6 +90,7 @@ public class EditProductsController implements Initializable {
             int id = this.productsVo.getId();
             String name = txtProductName.getText().trim();
             int qty = Integer.valueOf(txtProductsQty.getText().trim());
+            int qtyMin = Integer.valueOf(txtProductsQtyMin.getText().trim());
             String barcode = txtBarcode.getText().trim();
             float buyPrice = Float.valueOf(txtBuyPrice.getText().trim());
             float salePriceOdd = Float.valueOf(txtSalePriceOdd.getText().trim());
@@ -95,7 +99,7 @@ public class EditProductsController implements Initializable {
             Date expDate = Date.valueOf(dataPickExpire.getValue());
             Date storeDate = (Date) this.productsVo.getStore_date();
             String notes = txtAreaNote.getText().trim();
-            if ((qty <= 0) || (buyPrice <= 0.0) || (salePriceOdd <= 0.0) || (salePriceEven <= 0.0) || (maxDiscount < 0)) {
+            if ((qty <= 0) ||(qtyMin <= 0)|| (buyPrice <= 0.0) || (salePriceOdd <= 0.0) || (salePriceEven <= 0.0) || (maxDiscount < 0)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");
                 alert.setHeaderText("احد الحقول غير صحيح");
@@ -107,6 +111,7 @@ public class EditProductsController implements Initializable {
             pv.setId(id);
             pv.setName(name);
             pv.setQty(qty);
+            pv.setQtyMin(qtyMin);
             pv.setBarcode(barcode);
             pv.setBuyPrice(buyPrice);
             pv.setSalePriceOdd(salePriceOdd);

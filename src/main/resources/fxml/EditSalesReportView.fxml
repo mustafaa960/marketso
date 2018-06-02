@@ -109,7 +109,7 @@
       </AnchorPane>
       <Pane layoutX="45.0" layoutY="6.0" prefHeight="51.0" prefWidth="186.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 4; -fx-background-color: rgb(20, 95, 183,0.6);">
          <children>
-            <Label layoutX="29.0" layoutY="8.0" prefHeight="35.0" prefWidth="148.0" text="تعديل فاتورة المشتريات" textAlignment="CENTER" textFill="WHITE">
+            <Label layoutX="29.0" layoutY="8.0" prefHeight="35.0" prefWidth="148.0" text="تعديل فاتورة المبيعات" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>

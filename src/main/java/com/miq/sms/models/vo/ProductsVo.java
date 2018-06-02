@@ -20,6 +20,7 @@ public class ProductsVo {
     private IntegerProperty id;
     private StringProperty name;
     private IntegerProperty qty;
+    private IntegerProperty qtyMin;
     private StringProperty barcode;
     private FloatProperty buyPrice;
     private FloatProperty salePriceOdd;
@@ -35,6 +36,7 @@ public class ProductsVo {
         this.id = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty();
         this.qty = new SimpleIntegerProperty();
+        this.qtyMin = new SimpleIntegerProperty();
         this.barcode = new SimpleStringProperty();
         this.buyPrice = new SimpleFloatProperty();
         this.salePriceOdd = new SimpleFloatProperty();
@@ -81,6 +83,17 @@ public class ProductsVo {
 
     public void setQty(int qty) {
         this.qty.set(qty);
+    }
+    public IntegerProperty QtyMinProperty() {
+        return qtyMin;
+    }
+
+    public int getQtyMin() {
+        return qtyMin.get();
+    }
+
+    public void setQtyMin(int qtyMin) {
+        this.qtyMin.set(qtyMin);
     }
 
     public StringProperty BarcodeProperty() {

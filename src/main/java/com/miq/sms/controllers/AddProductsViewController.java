@@ -61,6 +61,8 @@ public class AddProductsViewController implements Initializable {
     private JFXTextField txtSalePriceEven;
     @FXML
     private JFXTextArea txtAreaNote;
+    @FXML
+    private JFXTextField txtProductsQtyMin;
 
     /**
      * Initializes the controller class.
@@ -120,7 +122,7 @@ public class AddProductsViewController implements Initializable {
     @FXML
     private void onSave(ActionEvent event) {
         try {
-            if(txtProductsQty.getText().trim().isEmpty()|| txtBarcode.getText().trim().isEmpty()||txtBuyPrice.getText().trim().isEmpty()||txtSalePriceOdd.getText().trim().isEmpty()||txtSalePriceEven.getText().trim().isEmpty()||txtDiscount.getText().trim().isEmpty()||dataPickExpire.getEditor().getText().isEmpty()){
+            if(txtProductsQty.getText().trim().isEmpty()||txtProductsQtyMin.getText().trim().isEmpty()|| txtBarcode.getText().trim().isEmpty()||txtBuyPrice.getText().trim().isEmpty()||txtSalePriceOdd.getText().trim().isEmpty()||txtSalePriceEven.getText().trim().isEmpty()||txtDiscount.getText().trim().isEmpty()||dataPickExpire.getEditor().getText().isEmpty()){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");
                 alert.setHeaderText("احد الحقول غير صحيح");
@@ -129,6 +131,7 @@ public class AddProductsViewController implements Initializable {
                 return;
             }
             int qty = Integer.valueOf(txtProductsQty.getText().trim());
+            int qtyMin = Integer.valueOf(txtProductsQtyMin.getText().trim());
             String barcode = txtBarcode.getText().trim();
             float buyPrice = Float.valueOf(txtBuyPrice.getText().trim());
             float salePriceOdd = Float.valueOf(txtSalePriceOdd.getText().trim());
@@ -137,7 +140,7 @@ public class AddProductsViewController implements Initializable {
             Date expDate = Date.valueOf(dataPickExpire.getValue());
             Date storeDate = Date.valueOf(LocalDate.now());
             String notes = txtAreaNote.getText().trim();
-            if ((qty <= 0) || (buyPrice <= 0.0) || (salePriceOdd <= 0.0) || (salePriceEven <= 0.0) || (maxDiscount < 0) ) {
+            if ((qty <= 0)||(qtyMin <= 0) || (buyPrice <= 0.0) || (salePriceOdd <= 0.0) || (salePriceEven <= 0.0) || (maxDiscount < 0) ) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");
                 alert.setHeaderText("احد الحقول غير صحيح");
@@ -155,6 +158,7 @@ public class AddProductsViewController implements Initializable {
                 productsVo.setId(id);
                 productsVo.setName(name);
                 productsVo.setQty(comboProductsName.getItems().get(0).getQty() + qty);
+                productsVo.setQtyMin(qtyMin);
                 productsVo.setBarcode(barcode);
                 if (buyPrice > comboProductsName.getItems().get(0).getBuyPrice()) {
                     productsVo.setBuyPrice(buyPrice);
@@ -209,6 +213,7 @@ public class AddProductsViewController implements Initializable {
                 productsVo.setId(id);
                 productsVo.setName(name);
                 productsVo.setQty(qty);
+                productsVo.setQtyMin(qtyMin);
                 productsVo.setBarcode(barcode);
                 productsVo.setBuyPrice(buyPrice);
                 productsVo.setSalePriceOdd(salePriceOdd);
@@ -335,6 +340,7 @@ public class AddProductsViewController implements Initializable {
         comboProductsName.getItems().clear();
         comboProductsName.getEditor().setText("");
         txtProductsQty.setText("");
+        txtProductsQtyMin.setText("");
         txtDiscount.setText("");
         txtBuyPrice.setText("");
         txtSalePriceOdd.setText("");

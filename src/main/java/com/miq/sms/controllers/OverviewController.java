@@ -125,7 +125,7 @@ public class OverviewController implements Initializable {
             ObservableList<ProductsVo> products = ProductsDao.getInstance().loadAll();
             ObservableList<ProductsVo> productsEndQty = FXCollections.observableArrayList();
             products.forEach((t) -> {
-                if(t.getQty()<10){
+                if(t.getQty()<=t.getQtyMin()){
                     productsEndQty.add(t);
                 }
             });

@@ -43,7 +43,7 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
         ObservableList<SalesVo> sales = FXCollections.observableArrayList();
         try {
             con = getConnection();
-            String sql = "SELECT products.id, products.name, products.qty, products.barcode,"
+            String sql = "SELECT products.id, products.name, products.qty, products.qty_min, products.barcode,"
                     + " products.buy_price, products.sale_price_odd, products.sale_price_even, products.max_discount,"
                     + " products.exp_date, products.store_date, products.notes,"
                     + " sale_bill.id, sale_bill.qty, sale_bill.sale_price, sale_bill.discount, sale_bill.date,"
@@ -57,6 +57,7 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
                 productsVo.setId(rs.getInt("id"));
                 productsVo.setName(rs.getString("name"));
                 productsVo.setQty(rs.getInt("qty"));
+                productsVo.setQtyMin(rs.getInt("qty_min"));
                 productsVo.setBarcode(rs.getString("barcode"));
                 productsVo.setBuyPrice(rs.getFloat("buy_price"));
                 productsVo.setSalePriceOdd(rs.getFloat("sale_price_odd"));
@@ -216,7 +217,7 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
         SalesVo salesVo=null;
         try {
             con = getConnection();
-            String sql = "SELECT products.id, products.name, products.qty, products.barcode,"
+            String sql = "SELECT products.id, products.name, products.qty, products.qty_min, products.barcode,"
                     + " products.buy_price, products.sale_price_odd, products.sale_price_even, products.max_discount,"
                     + " products.exp_date, products.store_date, products.notes,"
                     + " sale_bill.id, sale_bill.qty, sale_bill.sale_price, sale_bill.discount, sale_bill.date,"
@@ -230,6 +231,7 @@ public class SalesDao extends Dao implements DaoList<SalesVo> {
                 productsVo.setId(rs.getInt("id"));
                 productsVo.setName(rs.getString("name"));
                 productsVo.setQty(rs.getInt("qty"));
+                productsVo.setQtyMin(rs.getInt("qty_min"));
                 productsVo.setBarcode(rs.getString("barcode"));
                 productsVo.setBuyPrice(rs.getFloat("buy_price"));
                 productsVo.setSalePriceOdd(rs.getFloat("sale_price_odd"));

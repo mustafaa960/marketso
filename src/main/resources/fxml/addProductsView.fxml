@@ -30,6 +30,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <JFXTextField fx:id="txtBarcode" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="الكود الخاص بالمنتج barcode" unFocusColor="BLACK">
@@ -53,7 +54,7 @@
                         <Font size="14.0" />
                      </font>
                   </JFXTextField>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="97.0" prefWidth="349.0" spacing="10.0" GridPane.rowIndex="3">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="97.0" prefWidth="349.0" spacing="10.0" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets left="10.0" right="50.0" />
                      </GridPane.margin>
@@ -73,7 +74,7 @@
                         <Insets right="10.0" />
                      </padding>
                   </HBox>
-                  <JFXTextField fx:id="txtBuyPrice" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="سعر شراء القطعة" unFocusColor="BLACK" GridPane.rowIndex="4">
+                  <JFXTextField fx:id="txtBuyPrice" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="سعر شراء القطعة" unFocusColor="BLACK" GridPane.rowIndex="5">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -121,6 +122,14 @@
                         </JFXButton>
                      </children>
                   </HBox>
+                  <JFXTextField fx:id="txtProductsQtyMin" focusColor="#009688" labelFloat="true" prefHeight="25.0" prefWidth="359.0" promptText="الكمية المتبقية للأشعارات" unFocusColor="BLACK" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="90.0" />
+                     </GridPane.margin>
+                  </JFXTextField>
                </children>
             </GridPane>
          </children>

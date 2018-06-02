@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javafx.scene.control.Alert;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,8 +25,8 @@ public class Dao {
         }
         // Step 2: Opening database connection
         try {
-            String msAccDB = "..\\marketso\\src\\main\\resources\\db\\sms.accdb";
-//            String msAccDB = "..\\sms\\src\\main\\resources\\db\\sms.accdb";
+//            String msAccDB = "..\\marketso\\src\\main\\resources\\db\\sms.accdb";
+            String msAccDB = "..\\sms\\src\\main\\resources\\db\\sms.accdb";
             String dbURL = "jdbc:ucanaccess://" + msAccDB;
             // Step 2.A: Create and get connection using DriverManager class
             connection = DriverManager.getConnection(dbURL);

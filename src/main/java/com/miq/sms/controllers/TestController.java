@@ -5,7 +5,6 @@ import com.miq.sms.models.dao.BuyDao;
 import com.miq.sms.models.dao.SalesDao;
 import com.miq.sms.models.dao.UsersDao;
 import com.miq.sms.models.vo.ProductsVo;
-import com.miq.sms.models.vo.UsersType;
 import com.miq.sms.models.vo.UsersVo;
 import java.net.URL;
 import java.util.ResourceBundle;
