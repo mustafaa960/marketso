@@ -2,8 +2,12 @@
 package com.miq.sms.controllers;
 
 import com.jfoenix.controls.JFXRippler;
+import com.miq.sms.models.dao.BuyDao;
 import com.miq.sms.models.dao.ProductsDao;
+import com.miq.sms.models.dao.SalesDao;
+import com.miq.sms.models.vo.BuyVo;
 import com.miq.sms.models.vo.ProductsVo;
+import com.miq.sms.models.vo.SalesVo;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -32,26 +36,15 @@ public class OverviewController implements Initializable {
 
     @FXML
     private HBox groupHolder;
-    @FXML
-    private Group groupRegistered;
-    @FXML
-    private Group groupTarget;
-    @FXML
-    private Group groupGents;
-    @FXML
-    private Group groupLadies;
+    
     @FXML
     private Label labMostWanted;
-    @FXML
-    private Label labMostWantedNum;
     @FXML
     private StackPane stackPaneExpireNotify;
     @FXML
     private AnchorPane anchPaneQtyNotify;
     @FXML
     private StackPane stackPaneMostWanted;
-    @FXML
-    private Button btnAddDepartment1;
     @FXML
     private Label lblTotalQty;
     @FXML
@@ -66,6 +59,30 @@ public class OverviewController implements Initializable {
     private TableColumn<ProductsVo, String> colExpProductsName;
     @FXML
     private TableColumn<ProductsVo, Date> colExpDate;
+    @FXML
+    private Label lblSalesBill;
+    @FXML
+    private Label lblPurchasesBill;
+    @FXML
+    private Label lblProductsQTYFinish;
+    @FXML
+    private TableView<SalesVo> tableProductsMiniSales;
+    @FXML
+    private StackPane stackPaneMostWanted1;
+    @FXML
+    private TableView<SalesVo> tableProductsMaxSales;
+    @FXML
+    private Group groupProductsInStore;
+    @FXML
+    private Group groupSalesBill;
+    @FXML
+    private Group groupBuyBill;
+    @FXML
+    private Group groupProductsEndQty;
+    @FXML
+    private TableColumn<SalesVo, String> colProductsNameLess;
+    @FXML
+    private TableColumn<SalesVo, String> colProductsNameMore;
 
     /**
      * Initializes the controller class.
@@ -81,26 +98,30 @@ public class OverviewController implements Initializable {
     }    
 
     private void setRipples() {
-        JFXRippler rippler1 = new JFXRippler(groupRegistered);
-        JFXRippler rippler2 = new JFXRippler(groupGents);
-        JFXRippler rippler3 = new JFXRippler(groupLadies);
-        JFXRippler rippler4 = new JFXRippler(groupTarget);
-        rippler1.setMaskType(JFXRippler.RipplerMask.RECT);
-        rippler2.setMaskType(JFXRippler.RipplerMask.RECT);
-        rippler3.setMaskType(JFXRippler.RipplerMask.RECT);
-        rippler4.setMaskType(JFXRippler.RipplerMask.RECT);
+        JFXRippler ripplerPinS = new JFXRippler(groupProductsInStore);
+        JFXRippler ripplerSB = new JFXRippler(groupSalesBill);
+        JFXRippler ripplerBB = new JFXRippler(groupBuyBill);
+        JFXRippler ripplerPEQ = new JFXRippler(groupProductsEndQty);
+        ripplerPinS.setMaskType(JFXRippler.RipplerMask.RECT);
+        ripplerSB.setMaskType(JFXRippler.RipplerMask.RECT);
+        ripplerBB.setMaskType(JFXRippler.RipplerMask.RECT);
+        ripplerPEQ.setMaskType(JFXRippler.RipplerMask.RECT);
 
-        rippler1.setRipplerFill(Paint.valueOf("#1564C0"));
-        rippler2.setRipplerFill(Paint.valueOf("#00AACF"));
-        rippler3.setRipplerFill(Paint.valueOf("#00B3A0"));
-        rippler4.setRipplerFill(Paint.valueOf("#F87951"));
+        ripplerPinS.setRipplerFill(Paint.valueOf("#1564C0"));
+        ripplerSB.setRipplerFill(Paint.valueOf("#00AACF"));
+        ripplerBB.setRipplerFill(Paint.valueOf("#00B3A0"));
+        ripplerPEQ.setRipplerFill(Paint.valueOf("#F87951"));
 
-        groupHolder.getChildren().addAll(rippler1, rippler2, rippler3, rippler4);
+        groupHolder.getChildren().addAll(ripplerPinS, ripplerSB, ripplerBB, ripplerPEQ);
     }
     public void fillProductsExp(){
         try {
             tableExpProducts.getItems().clear();
             ObservableList<ProductsVo> products = ProductsDao.getInstance().loadAll();
+            ObservableList<SalesVo> sales = SalesDao.getInstance().loadAll();
+            ObservableList<SalesVo> salesMonth = FXCollections.observableArrayList();
+            ObservableList<BuyVo> buy = BuyDao.getInstance().loadAll();
+            ObservableList<BuyVo> BuyMonth = FXCollections.observableArrayList();
             ObservableList<ProductsVo> productsExp = FXCollections.observableArrayList();
             products.forEach((t) -> {
                 if(((Date)t.getExp_date()).before(Date.valueOf(LocalDate.now().plusMonths(2)))){
@@ -111,6 +132,31 @@ public class OverviewController implements Initializable {
             colExpDate.setCellValueFactory(c -> c.getValue().Exp_dateProperty());
             tableExpProducts.setItems(productsExp);
             lblTotalQty.setText(String.valueOf(products.size()));
+            // load sales bill
+            sales.forEach((t) -> {
+                if(((Date)t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(30)))){
+                    salesMonth.add(t);
+                }
+            });
+            lblSalesBill.setText(String.valueOf(salesMonth.size()));
+            // load Buy bill
+            buy.forEach((t) -> {
+                if(((Date)t.getDate()).after(Date.valueOf(LocalDate.now().minusDays(30)))){
+                    BuyMonth.add(t);
+                }
+            });
+            lblPurchasesBill.setText(String.valueOf(BuyMonth.size()));
+            
+            // load more in this month
+//            ObservableList<SalesVo> salesMonthMore = FXCollections.observableArrayList();
+//            salesMonth.forEach((t) -> {
+//                if(!salesMonth.contains(t)){
+//                    salesMonthMore.add(t);
+//                }
+//            });
+//colProductsNameMore.setCellValueFactory(c->c.getValue().getProductsVo().NameProperty());
+//            tableProductsMaxSales.setItems(salesMonthMore);
+//            
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
              alert.setTitle("خطأ");
@@ -132,6 +178,16 @@ public class OverviewController implements Initializable {
             colProductsName.setCellValueFactory(c -> c.getValue().NameProperty());
             colQty.setCellValueFactory(c -> c.getValue().QtyProperty().asObject());
             tableProductsQty.setItems(productsEndQty);
+            
+            // load product End qty
+            ObservableList<ProductsVo> productsQty = ProductsDao.getInstance().loadAll();
+            ObservableList<ProductsVo> productsQtyFinish = FXCollections.observableArrayList();
+            productsQty.forEach((t) -> {
+                if(t.getQty()==0){
+                    productsQtyFinish.add(t);
+                }
+            });
+            lblProductsQTYFinish.setText(String.valueOf(productsQtyFinish.size()));
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
              alert.setTitle("خطأ");
@@ -140,4 +196,5 @@ public class OverviewController implements Initializable {
             alert.showAndWait();
         }
     }
+    
 }
