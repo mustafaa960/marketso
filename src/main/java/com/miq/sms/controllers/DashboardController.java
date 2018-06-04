@@ -34,7 +34,7 @@ public class DashboardController implements Initializable {
     private AnchorPane sideAnchor;
     @FXML
     private JFXToolbar toolBar;
-    private AnchorPane home, sales, addProduct, store, purchases,salesReport;
+    private AnchorPane home, sales, addProduct, store, purchases,salesReport,users,setting;
     @FXML
     private JFXButton btnHome;
     @FXML
@@ -47,6 +47,10 @@ public class DashboardController implements Initializable {
     private JFXButton btnPurchases;
     @FXML
     private JFXButton btnSalesReport;
+    @FXML
+    private JFXButton btnUsers;
+    @FXML
+    private JFXButton btnSetting;
 
     /**
      * Initializes the controller class.
@@ -63,6 +67,7 @@ public class DashboardController implements Initializable {
     public static UsersVo usersVo;
     /**
      * Creates new form Home
+     * @param uv
      */
     public DashboardController(UsersVo uv) {
 //        initComponents();
@@ -95,6 +100,8 @@ public class DashboardController implements Initializable {
     FXMLLoader storeloader = new FXMLLoader(getClass().getResource("/fxml/Store.fxml"));
     FXMLLoader purchaseLoder = new FXMLLoader(getClass().getResource("/fxml/PurchasesView.fxml"));
     FXMLLoader salesReportLoder = new FXMLLoader(getClass().getResource("/fxml/salesReportView.fxml"));
+    FXMLLoader usersLoder = new FXMLLoader(getClass().getResource("/fxml/UsersView.fxml"));
+    FXMLLoader settingLoder = new FXMLLoader(getClass().getResource("/fxml/SettingDBView.fxml"));
 
     //Load all fxml files to a cahce for swapping
     private void createPages() {
@@ -105,6 +112,8 @@ public class DashboardController implements Initializable {
             store = storeloader.load();
             purchases = purchaseLoder.load();
             salesReport=salesReportLoder.load();
+            users=usersLoder.load();
+            setting=settingLoder.load();
 
             //set up default node on page load
             setNode(home);
@@ -163,6 +172,18 @@ public class DashboardController implements Initializable {
         setNode(salesReport);
         SalesReportViewController controller = salesReportLoder.<SalesReportViewController>getController();
         controller.textSearch();
+    }
+
+    @FXML
+    private void onUsers(ActionEvent event) {
+        setNode(users);
+        UsersController controller = usersLoder.<UsersController>getController();
+        controller.textSearch();
+    }
+
+    @FXML
+    private void onSetting(ActionEvent event) {
+        setNode(setting);
     }
 
 }

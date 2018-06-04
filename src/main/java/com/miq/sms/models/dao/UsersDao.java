@@ -50,8 +50,8 @@ public class UsersDao extends Dao implements DaoList<UsersVo> {
                 usersVo.setUsersType(usersType);
 
                 Users.add(usersVo);
-                System.err.println(usersVo.getUserName());
-                System.err.println(usersVo.getUsersType().getType());
+//                System.err.println(usersVo.getUserName());
+//                System.err.println(usersVo.getUsersType().getType());
             }
             rs.close();
             ps.close();
