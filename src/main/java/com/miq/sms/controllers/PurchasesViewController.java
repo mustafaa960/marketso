@@ -201,6 +201,8 @@ public class PurchasesViewController implements Initializable {
                 Stage primaryStage = (Stage) btnEditProducts.getScene().getWindow();
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
+                stage.setResizable(false);
+                stage.setFullScreen(false);
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.initOwner(primaryStage);
                 stage.initStyle(StageStyle.UTILITY);

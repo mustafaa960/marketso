@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXTextField;
 import com.miq.sms.models.dao.BuyDao;
 import com.miq.sms.models.vo.BuyVo;
 import com.miq.sms.models.vo.ProductsVo;
-import com.miq.sms.models.vo.UsersVo;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;

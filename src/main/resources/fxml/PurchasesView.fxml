@@ -14,7 +14,7 @@
     <children>
       <VBox spacing="10.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
          <children>
-            <AnchorPane layoutX="31.0" layoutY="50.0" style="-fx-background-color: rgb(0, 115, 183,0.6); -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 5;" AnchorPane.rightAnchor="317.0" AnchorPane.topAnchor="50.0">
+            <AnchorPane layoutX="31.0" layoutY="50.0" style="-fx-background-color: rgb(0, 115, 183,0.6);" AnchorPane.rightAnchor="317.0" AnchorPane.topAnchor="50.0">
                <children>
                   <JFXTextField fx:id="txtSearchBarcode" focusColor="WHITE" labelFloat="true" maxWidth="334.0" minWidth="253.0" prefHeight="29.0" prefWidth="269.0" promptText="بحث بواسطة الباركود" unFocusColor="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="50.0">
                      <font>

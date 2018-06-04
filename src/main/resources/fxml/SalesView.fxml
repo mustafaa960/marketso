@@ -40,7 +40,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <JFXTextField fx:id="txtCustomerName" focusColor="#2196f3" labelFloat="true" promptText="اسم العميل" GridPane.rowIndex="6">
+                        <JFXTextField fx:id="txtCustomerName" focusColor="#2196f3" labelFloat="true" promptText="اسم الزبون" GridPane.rowIndex="6">
                            <font>
                               <Font name="Roboto Medium" size="14.0" />
                            </font>

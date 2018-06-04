@@ -1,4 +1,4 @@
-# marketo
+# marketso
 
 supermarket management system 
 

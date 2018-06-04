@@ -106,7 +106,7 @@ public class AddProductsViewController implements Initializable {
 
             });
         } catch (Exception ex) {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("خطأ");
             alert.setHeaderText(ex.getMessage());
             alert.setContentText(ex.toString());

@@ -146,7 +146,7 @@
                                     <Insets left="2.0" />
                                  </GridPane.margin>
                               </FontAwesomeIconView>
-                              <JFXButton fx:id="btnSalesReport1" onAction="#onSalesReport" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="المستخدمين" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="6">
+                              <JFXButton fx:id="btnUsers" onAction="#onUsers" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="المستخدمين" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="6">
                                  <font>
                                     <Font name="Roboto Medium" size="13.0" />
                                  </font>
@@ -155,7 +155,7 @@
                                  </padding>
                               </JFXButton>
                               <FontAwesomeIconView glyphName="USERS" size="28" textAlignment="CENTER" wrappingWidth="40.0" GridPane.rowIndex="6" />
-                              <JFXButton fx:id="btnSalesReport11" onAction="#onSalesReport" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="الاعدادات" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="7">
+                              <JFXButton fx:id="btnSetting" onAction="#onSetting" prefHeight="36.0" prefWidth="189.0" ripplerFill="#0e6c8e" styleClass="side-buttons" text="الاعدادات" textAlignment="RIGHT" textFill="#757575" GridPane.rowIndex="7">
                                  <font>
                                     <Font name="Roboto Medium" size="13.0" />
                                  </font>

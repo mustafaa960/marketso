@@ -1,9 +1,17 @@
 package com.miq.sms.models.dao;
 
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javafx.scene.control.Alert;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,6 +20,22 @@ import javafx.scene.control.Alert;
 //calss database access object
 public class Dao {
      public Connection getConnection()  {
+         Path sourceDir = Paths.get("classes\\db");
+        Path targetDir = Paths.get("classes\\MarketSo\\db");
+//        Path targetDir = Paths.get("C:\\MarketSo\\db");
+        String msAccDB="";
+        if(!Files.exists(targetDir)){
+           try {
+               Files.createDirectories(targetDir);
+               Files.walkFileTree(sourceDir, new CopyDir(sourceDir, targetDir));
+              // msAccDB = "classes\\db\\BodyBuilding.accdb";
+           } 
+           catch (IOException ex) {
+               
+              JOptionPane.showMessageDialog(null, ex.getMessage());
+           }
+            
+        }
         // variables
         Connection connection = null;
         // Step 1: Loading or registering Oracle JDBC driver class
@@ -26,7 +50,8 @@ public class Dao {
         // Step 2: Opening database connection
         try {
 //            String msAccDB = "..\\marketso\\src\\main\\resources\\db\\sms.accdb";
-            String msAccDB = "..\\sms\\src\\main\\resources\\db\\sms.accdb";
+             msAccDB = "classes\\MarketSo\\db\\sms.accdb";
+//             msAccDB = "C:\\MarketSo\\db\\sms.accdb";
             String dbURL = "jdbc:ucanaccess://" + msAccDB;
             // Step 2.A: Create and get connection using DriverManager class
             connection = DriverManager.getConnection(dbURL);
@@ -65,4 +90,41 @@ public class Dao {
                        alert.showAndWait();
         }
     }
+     public  class CopyDir extends SimpleFileVisitor<Path> {
+    private Path sourceDir;
+    private Path targetDir;
+  public CopyDir(Path sourceDir, Path targetDir) {
+        this.sourceDir = sourceDir;
+        this.targetDir = targetDir;
+    }
+ 
+    @Override
+    public FileVisitResult visitFile(Path file,
+            BasicFileAttributes attributes) {
+ 
+        try {
+            Path targetFile = targetDir.resolve(sourceDir.relativize(file));
+            Files.copy(file, targetFile);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+ 
+        return FileVisitResult.CONTINUE;
+    }
+ 
+    @Override
+    public FileVisitResult preVisitDirectory(Path dir,
+            BasicFileAttributes attributes) {
+        try {
+            Path newDir = targetDir.resolve(sourceDir.relativize(dir));
+            Files.createDirectory(newDir);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+ 
+        return FileVisitResult.CONTINUE;
+    }
+ 
+    
+}
 }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="595.0" prefWidth="495.0" stylesheets="@../styles/custom.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.miq.sms.controllers.EditUsersController">
+   <children>
+      <AnchorPane layoutX="34.0" layoutY="86.0" prefHeight="466.0" prefWidth="430.0" styleClass="card-white">
+         <children>
+            <GridPane layoutY="35.0" prefHeight="429.0" prefWidth="403.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="113.0" minHeight="10.0" prefHeight="108.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="113.0" minHeight="10.0" prefHeight="113.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <JFXTextField fx:id="txtUsername" focusColor="#2196f3" labelFloat="true" promptText="اسم المستخدم">
+                     <font>
+                        <Font name="Roboto Medium" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </GridPane.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="txtPassword" focusColor="#2196f3" labelFloat="true" promptText="كلمة المرور" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Roboto Medium" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </GridPane.margin>
+                  </JFXTextField>
+                  <JFXComboBox fx:id="comboUserType" labelFloat="true" prefHeight="33.0" prefWidth="305.0" promptText="نوع الصلاحية" visibleRowCount="2" GridPane.rowIndex="2">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="admin" />
+                           <String fx:value="user" />
+                        </FXCollections>
+                     </items>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </JFXComboBox>
+                  <JFXTextField fx:id="txtFullName" focusColor="#2196f3" labelFloat="true" promptText="اسم المستخدم الكامل" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Roboto Medium" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </GridPane.margin>
+                  </JFXTextField>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="4">
+                     <children>
+                        <JFXButton fx:id="btnClear" buttonType="RAISED" onAction="#onClear" prefHeight="30.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: tomato;" text="تفريغ الحقول" textFill="#f5f5f5">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnSave" buttonType="RAISED" onAction="#onSave" prefHeight="30.0" prefWidth="100.0" ripplerFill="#fdffff" style="-fx-background-color: #43A047;" text="حفظ" textFill="#f5f5f5">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="31.0" layoutY="37.0" prefHeight="45.0" prefWidth="430.0" style="-fx-background-color: rgb(0, 115, 183,0.6); -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 5;">
+         <children>
+            <Pane layoutX="-10.0" layoutY="-29.0" prefHeight="51.0" prefWidth="186.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 4; -fx-background-color: rgb(20, 95, 183,0.6);" AnchorPane.leftAnchor="-10.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="29.0" layoutY="8.0" prefHeight="35.0" prefWidth="129.0" text="تعديل مستخدم" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto Medium" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
