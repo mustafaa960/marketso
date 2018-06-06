@@ -1,4 +1,3 @@
-
 package com.miq.sms.controllers;
 
 import com.jfoenix.controls.JFXButton;
@@ -9,9 +8,16 @@ import com.miq.sms.models.dao.UsersDao;
 import com.miq.sms.models.vo.UsersVo;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
@@ -93,6 +99,51 @@ public class LoginController implements Initializable {
 
     }
 
+   
+     //logs file
+    public void iniFile(String name, String process) {
+
+//      
+        String timeLog = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(Calendar.getInstance().getTime());
+
+        String dirName = "classes\\LogsFile";
+
+        String fileName = "logs.txt";
+        File dir = new File(dirName);
+        if (!dir.exists()) {
+
+            dir.mkdir();
+        }
+        File actualFile = new File(dir, fileName);
+
+        if (!actualFile.exists()) {
+
+            try {
+                actualFile.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        try {
+            FileWriter writer = new FileWriter(actualFile, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            bufferedWriter.newLine();
+            bufferedWriter.write("#" + timeLog + " : " + name + " ->");
+            bufferedWriter.newLine();
+            bufferedWriter.write(process);
+            bufferedWriter.newLine();
+            bufferedWriter.write("-------------------------------");
+
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void completeLogin() {
         try {
             UsersVo uv = UsersDao.getInstance().getData(usersVo);
@@ -101,26 +152,30 @@ public class LoginController implements Initializable {
                 imgProgress.setVisible(false);
 //                System.err.println("enter valid user name and password");
             } else {
-                DashboardController dashboardController =new DashboardController();
-                dashboardController.usersVo=uv;
-        btnLogin.getScene().getWindow().hide();
-        
-            imgProgress.setVisible(false);
-            Stage dashboardStage = new Stage();
-            dashboardStage.setTitle("");
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Dashboard.fxml"));
-            Scene scene = new Scene(root);
-            dashboardStage.setScene(scene);
-            dashboardStage.show();
+                DashboardController dashboardController = new DashboardController();
+                dashboardController.usersVo = uv;
+                iniFile(usersVo.getUserName(),"Login");
+
+                btnLogin.getScene().getWindow().hide();
+
+                imgProgress.setVisible(false);
+                Stage dashboardStage = new Stage();
+                dashboardStage.setTitle("");
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/Dashboard.fxml"));
+                Scene scene = new Scene(root);
+                dashboardStage.setScene(scene);
+                dashboardStage.show();
             }
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex);
 //            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        
 
-    }   catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+   
 
 }

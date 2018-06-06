@@ -1,4 +1,3 @@
-
 package com.miq.sms.controllers;
 
 import com.jfoenix.controls.JFXButton;
@@ -39,17 +38,18 @@ public class EditUsersController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
     UsersVo usersVo = null;
 
     public void initUser(UsersVo uv) {
-        this.usersVo=uv;
+        this.usersVo = uv;
         txtUsername.setText(this.usersVo.getUserName());
         txtPassword.setText(this.usersVo.getPassword());
         txtFullName.setText(this.usersVo.getUserFullName());
@@ -64,7 +64,7 @@ public class EditUsersController implements Initializable {
     @FXML
     private void onSave(ActionEvent event) {
         try {
-            if(txtUsername.getText().trim().isEmpty()||txtPassword.getText().trim().isEmpty()|| txtFullName.getText().trim().isEmpty()||comboUserType.getSelectionModel().getSelectedIndex()<0){
+            if (txtUsername.getText().trim().isEmpty() || txtPassword.getText().trim().isEmpty() || txtFullName.getText().trim().isEmpty() || comboUserType.getSelectionModel().getSelectedIndex() < 0) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");
                 alert.setHeaderText("احد الحقول غير صحيح");
@@ -75,7 +75,7 @@ public class EditUsersController implements Initializable {
             int id = this.usersVo.getId();
             String userName = txtUsername.getText().trim();
             String password = txtPassword.getText().trim();
-            String fullName =txtFullName.getText().trim();
+            String fullName = txtFullName.getText().trim();
             UsersType usersType = UsersType.getUsersTypeById(comboUserType.getSelectionModel().getSelectedIndex() + 1);
             UsersVo uv = new UsersVo();
             uv.setId(id);
@@ -91,6 +91,11 @@ public class EditUsersController implements Initializable {
                 alert.showAndWait();
                 Stage stage = (Stage) btnSave.getScene().getWindow();
                 stage.close();
+
+                // instance of user
+                String getuser = DashboardController.usersVo.getUserName();
+                LoginController lc = new LoginController();
+                lc.iniFile(getuser, "edit user : " + uv.getUserName());
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");
@@ -105,7 +110,8 @@ public class EditUsersController implements Initializable {
             alert.showAndWait();
         }
     }
-    private void clear(){
+
+    private void clear() {
         txtUsername.setText("");
         txtPassword.setText("");
         txtFullName.setText("");

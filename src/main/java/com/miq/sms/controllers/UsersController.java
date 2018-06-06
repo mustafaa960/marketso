@@ -1,4 +1,3 @@
-
 package com.miq.sms.controllers;
 
 import com.jfoenix.controls.JFXButton;
@@ -58,15 +57,17 @@ public class UsersController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       LoadALL();
-       textSearch();
-    }    
-     //vo داله تقوم بملىء التيبل من اليوزر
+        LoadALL();
+        textSearch();
+    }
+    //vo داله تقوم بملىء التيبل من اليوزر
+
     public void LoadALL() {
         try {
 
@@ -78,23 +79,24 @@ public class UsersController implements Initializable {
             colUserType.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getUsersType().getType()));
             TableUsers.setItems(users);
             TableUsers.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            
+
         } catch (Exception ex) {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("خطأ");
             alert.setHeaderText(ex.getMessage());
             alert.setContentText(ex.toString());
             alert.showAndWait();
         }
     }
+
     public void textSearch() {
         try {
-             LoadALL();
+            LoadALL();
             ObservableList data = TableUsers.getItems();
             txtSearch.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
                 if (oldValue != null && (newValue.length() < oldValue.length())) {
-                     TableUsers.setItems(data);
-                     TableUsers.getSelectionModel().clearSelection();
+                    TableUsers.setItems(data);
+                    TableUsers.getSelectionModel().clearSelection();
                 }
                 String value = newValue.toLowerCase().trim();
                 ObservableList<UsersVo> subentries = FXCollections.observableArrayList();
@@ -103,23 +105,24 @@ public class UsersController implements Initializable {
                 for (int i = 0; i < TableUsers.getItems().size(); i++) {
                     for (int j = 0; j < count; j++) {
                         String userName = "" + TableUsers.getColumns().get(1).getCellData(i);
-                       
-                         if (userName.toLowerCase().startsWith(value)) {
+
+                        if (userName.toLowerCase().startsWith(value)) {
                             subentries.add(TableUsers.getItems().get(i));
                             break;
-                        } 
+                        }
                     }
                 }
                 TableUsers.setItems(subentries);
             });
         } catch (Exception ex) {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("خطأ");
             alert.setHeaderText(ex.getMessage());
             alert.setContentText(ex.toString());
             alert.showAndWait();
         }
     }
+
     @FXML
     private void onEdit(ActionEvent event) {
         try {
@@ -134,7 +137,7 @@ public class UsersController implements Initializable {
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setTitle("اضافة مستخدم");
-  //            stage.getIcons().add(new Image("/icons/BodyBuilding.png"));
+                //            stage.getIcons().add(new Image("/icons/BodyBuilding.png"));
                 stage.setResizable(false);
                 stage.setFullScreen(false);
                 stage.initModality(Modality.WINDOW_MODAL);
@@ -153,14 +156,14 @@ public class UsersController implements Initializable {
                 });
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("تحذير");
-            alert.setHeaderText("لم يتم تحديد اي عنصر");
-            alert.setContentText("يرجى اختيار عنصر لتعديله ");
-            alert.showAndWait();
+                alert.setTitle("تحذير");
+                alert.setHeaderText("لم يتم تحديد اي عنصر");
+                alert.setContentText("يرجى اختيار عنصر لتعديله ");
+                alert.showAndWait();
             }
         } catch (IOException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-             alert.setTitle("خطأ");
+            alert.setTitle("خطأ");
             alert.setHeaderText(ex.getMessage());
             alert.setContentText(ex.toString());
             alert.showAndWait();
@@ -172,7 +175,7 @@ public class UsersController implements Initializable {
         try {
             Stage Primarystage = (Stage) btnAdd.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/AddUsersView.fxml"));
-            
+
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setTitle("اضافة مستخدم");
@@ -185,16 +188,16 @@ public class UsersController implements Initializable {
             stage.setScene(scene);
             stage.show();
             stage.setOnHidden((WindowEvent we) -> {
-               
+
                 LoadALL();
                 textSearch();
                 TableUsers.requestFocus();
                 TableUsers.getSelectionModel().selectLast();
                 TableUsers.scrollTo(TableUsers.getSelectionModel().getFocusedIndex());
-                
+
             });
         } catch (IOException ex) {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("خطأ");
             alert.setHeaderText(ex.getMessage());
             alert.setContentText(ex.toString());
@@ -213,20 +216,26 @@ public class UsersController implements Initializable {
             if (result.get() == ButtonType.OK) {
                 try {
                     UsersVo uv = TableUsers.getSelectionModel().getSelectedItem();
-                    int count =UsersDao.getInstance().delete(uv);
-                    if(count ==1){
+                    int count = UsersDao.getInstance().delete(uv);
+                    if (count == 1) {
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("الحذف");
                         alert.setHeaderText("تم الحذف بنجاح");
                         alert.showAndWait();
                         textSearch();
+                        
+                        // instance of user
+
+                        String getuser = DashboardController.usersVo.getUserName();
+                        LoginController lc = new LoginController();
+                        lc.iniFile(getuser, "delete user : " + uv.getUserName());
                     }
                 } catch (Exception ex) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("خطأ");
-            alert.setHeaderText(ex.getMessage());
-            alert.setContentText(ex.toString());
-            alert.showAndWait();
+                    alert.setTitle("خطأ");
+                    alert.setHeaderText(ex.getMessage());
+                    alert.setContentText(ex.toString());
+                    alert.showAndWait();
                 }
 
             } else {
@@ -241,5 +250,5 @@ public class UsersController implements Initializable {
             alert.showAndWait();
         }
     }
-    
+
 }

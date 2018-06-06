@@ -1,6 +1,7 @@
 package com.miq.sms.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.miq.sms.models.vo.UsersVo;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +32,10 @@ public class SettingDBController implements Initializable {
     @FXML
     private JFXButton btnRestore;
 
+    // instance of user
+//    UsersVo usersVo = new UsersVo();
+    private String user = DashboardController.usersVo.getUserName();
+
     /**
      * Initializes the controller class.
      *
@@ -51,6 +56,11 @@ public class SettingDBController implements Initializable {
             Path targetDir = Paths.get(selectedDirectory.getAbsolutePath());
             try {
                 Files.walkFileTree(sourceDir, new CopyDir(sourceDir, targetDir));
+
+                // logs file  
+                LoginController lc = new LoginController();
+                lc.iniFile(user, "Backup Database");
+
 //                 Notifications notificatioAdd = Notifications.create();
 //                    notificatioAdd.title("تصدير");
 //                    notificatioAdd.text("تم تصدير قاعدة البيانات بنجاح");
@@ -76,28 +86,31 @@ public class SettingDBController implements Initializable {
 
     @FXML
     private void onRestore(ActionEvent event) {
-         final DirectoryChooser directoryChooser = new DirectoryChooser();
+        final DirectoryChooser directoryChooser = new DirectoryChooser();
         final File selectedDirectory = directoryChooser.showDialog(null);
-            if (selectedDirectory != null) {
-                Path sourceDir = Paths.get(selectedDirectory.getAbsolutePath());
-               // Path sourceDir2 = Paths.get("C:\\Users\\AL SAFIR\\Desktop\\New folder (4)\\Database\\db\\BodyBuilding.accdb");
-                Path sourceDir2 = Paths.get(selectedDirectory.getAbsolutePath().concat("\\sms.accdb"));
-               // Path sourceDir3 = Paths.get(selectedDirectory.getAbsolutePath().concat("\\Images trainees"));
-               Path targetDir = Paths.get("classes\\MarketSo\\db");
+        if (selectedDirectory != null) {
+            Path sourceDir = Paths.get(selectedDirectory.getAbsolutePath());
+            // Path sourceDir2 = Paths.get("C:\\Users\\AL SAFIR\\Desktop\\New folder (4)\\Database\\db\\BodyBuilding.accdb");
+            Path sourceDir2 = Paths.get(selectedDirectory.getAbsolutePath().concat("\\sms.accdb"));
+            // Path sourceDir3 = Paths.get(selectedDirectory.getAbsolutePath().concat("\\Images trainees"));
+            Path targetDir = Paths.get("classes\\MarketSo\\db");
 //                Path targetDir2 = Paths.get("C:\\Body Building\\db\\sms.accdb");
-                Path targetDir2 = Paths.get("classes\\MarketSo\\db\\sms.accdb");
+            Path targetDir2 = Paths.get("classes\\MarketSo\\db\\sms.accdb");
 //                Path targetDir2 = Paths.get("C:\\Program Files (x86)\\MarketSo\\classes\\db\\sms.accdb");
-              //  Path targetDir3 = Paths.get("C:\\Body Building\\Database\\Images trainees");
-              //  Path targetDir4 = Paths.get("C:\\Body Building\\Database\\bdfReports");
+            //  Path targetDir3 = Paths.get("C:\\Body Building\\Database\\Images trainees");
+            //  Path targetDir4 = Paths.get("C:\\Body Building\\Database\\bdfReports");
             try {
-             //   Files.deleteIfExists(targetDir3);
-              //  Files.deleteIfExists(targetDir4);
+                //   Files.deleteIfExists(targetDir3);
+                //  Files.deleteIfExists(targetDir4);
                 Files.createDirectories(targetDir);
                 Files.walkFileTree(sourceDir, new CopyDir(sourceDir, targetDir));
-                byte[] b=Files.readAllBytes(sourceDir2);
-               // Files.write(targetDir2, b);
+                byte[] b = Files.readAllBytes(sourceDir2);
+                // Files.write(targetDir2, b);
                 Files.write(targetDir2, b);
-  
+
+                // logs file  
+                LoginController lc = new LoginController();
+                lc.iniFile(user, "Backup Database");
 //                 Notifications notificatioAdd = Notifications.create();
 //                    notificatioAdd.title("استيراد");
 //                    notificatioAdd.text("تم استيراد قاعدة البيانات بنجاح");
@@ -111,14 +124,14 @@ public class SettingDBController implements Initializable {
 //                Deletalert.setContentText(ex.getMessage());
                 Deletalert.showAndWait();
             } catch (IOException ex) {
-        Alert Deletalert = new Alert(Alert.AlertType.ERROR);
-        Deletalert.setTitle("تحذير");
-        Deletalert.setHeaderText("حدث خطأ لم يتم استيراد قاعدة البيانات ");
-        Deletalert.setContentText(ex.getMessage());
-        Deletalert.showAndWait();
-             //   Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                Alert Deletalert = new Alert(Alert.AlertType.ERROR);
+                Deletalert.setTitle("تحذير");
+                Deletalert.setHeaderText("حدث خطأ لم يتم استيراد قاعدة البيانات ");
+                Deletalert.setContentText(ex.getMessage());
+                Deletalert.showAndWait();
+                //   Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            }
+        }
     }
 
     public class CopyDir extends SimpleFileVisitor<Path> {

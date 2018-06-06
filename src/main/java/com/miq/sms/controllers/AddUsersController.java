@@ -1,4 +1,3 @@
-
 package com.miq.sms.controllers;
 
 import com.jfoenix.controls.JFXButton;
@@ -35,15 +34,20 @@ public class AddUsersController implements Initializable {
     @FXML
     private JFXButton btnSave;
 
+    // instance of user
+//    UsersVo getuservo = new UsersVo();
+    private String getuser = DashboardController.usersVo.getUserName();
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void onClear(ActionEvent event) {
@@ -52,9 +56,9 @@ public class AddUsersController implements Initializable {
 
     @FXML
     private void onSave(ActionEvent event) {
-        
+
         try {
-            if(txtUsername.getText().trim().isEmpty()||txtPassword.getText().trim().isEmpty()|| txtFullName.getText().trim().isEmpty()||comboUserType.getSelectionModel().getSelectedIndex()<0){
+            if (txtUsername.getText().trim().isEmpty() || txtPassword.getText().trim().isEmpty() || txtFullName.getText().trim().isEmpty() || comboUserType.getSelectionModel().getSelectedIndex() < 0) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");
                 alert.setHeaderText("احد الحقول غير صحيح");
@@ -62,10 +66,10 @@ public class AddUsersController implements Initializable {
                 alert.showAndWait();
                 return;
             }
-            int id = UsersDao.getInstance().getLastUserId()+1;
+            int id = UsersDao.getInstance().getLastUserId() + 1;
             String userName = txtUsername.getText().trim();
             String password = txtPassword.getText().trim();
-            String fullName =txtFullName.getText().trim();
+            String fullName = txtFullName.getText().trim();
             UsersType usersType = UsersType.getUsersTypeById(comboUserType.getSelectionModel().getSelectedIndex() + 1);
             UsersVo usersVo = new UsersVo();
             usersVo.setId(id);
@@ -76,27 +80,30 @@ public class AddUsersController implements Initializable {
             int Count = UsersDao.getInstance().insert(usersVo);
             if (Count == 1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("اضافة");
-                    alert.setHeaderText("تمت الاضافة بنجاح");
-                    alert.showAndWait();
-                    Stage stage = (Stage) btnSave.getScene().getWindow();
-                    stage.close();
+                alert.setTitle("اضافة");
+                alert.setHeaderText("تمت الاضافة بنجاح");
+                alert.showAndWait();
+                Stage stage = (Stage) btnSave.getScene().getWindow();
+                stage.close();
+                LoginController lc = new LoginController();
+                lc.iniFile(getuser, "add new user : " + userName);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("خطأ");
-                    alert.setHeaderText("لم يتم الاضافة");
-                    alert.showAndWait();
+                alert.setTitle("خطأ");
+                alert.setHeaderText("لم يتم الاضافة");
+                alert.showAndWait();
             }
-           
+
         } catch (Exception ex) {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("خطأ");
             alert.setHeaderText(ex.getMessage());
             alert.setContentText(ex.toString());
             alert.showAndWait();
         }
     }
-    private void clear(){
+
+    private void clear() {
         txtUsername.setText("");
         txtPassword.setText("");
         txtFullName.setText("");

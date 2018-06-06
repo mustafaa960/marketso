@@ -76,7 +76,7 @@ public class EditProductsController implements Initializable {
     @FXML
     private void onSave(ActionEvent event) {
         try {
-            if (txtBarcode.getText().trim().isEmpty() || txtProductName.getText().trim().isEmpty() || txtProductsQty.getText().trim().isEmpty()|| txtProductsQtyMin.getText().trim().isEmpty()
+            if (txtBarcode.getText().trim().isEmpty() || txtProductName.getText().trim().isEmpty() || txtProductsQty.getText().trim().isEmpty() || txtProductsQtyMin.getText().trim().isEmpty()
                     || txtDiscount.getText().trim().isEmpty() || txtBuyPrice.getText().trim().isEmpty()
                     || txtSalePriceOdd.getText().trim().isEmpty() || txtSalePriceEven.getText().trim().isEmpty()
                     || dataPickExpire.getEditor().getText().trim().isEmpty()) {
@@ -99,7 +99,7 @@ public class EditProductsController implements Initializable {
             Date expDate = Date.valueOf(dataPickExpire.getValue());
             Date storeDate = (Date) this.productsVo.getStore_date();
             String notes = txtAreaNote.getText().trim();
-            if ((qty <= 0) ||(qtyMin <= 0)|| (buyPrice <= 0.0) || (salePriceOdd <= 0.0) || (salePriceEven <= 0.0) || (maxDiscount < 0)) {
+            if ((qty <= 0) || (qtyMin <= 0) || (buyPrice <= 0.0) || (salePriceOdd <= 0.0) || (salePriceEven <= 0.0) || (maxDiscount < 0)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");
                 alert.setHeaderText("احد الحقول غير صحيح");
@@ -128,6 +128,11 @@ public class EditProductsController implements Initializable {
                 alert.showAndWait();
                 Stage stage = (Stage) btnSave.getScene().getWindow();
                 stage.close();
+
+                // instance of user
+                String getuser = DashboardController.usersVo.getUserName();
+                LoginController lc = new LoginController();
+                lc.iniFile(getuser, "edit Product : " + pv.getName());
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("خطأ");
